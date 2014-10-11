@@ -1,0 +1,23 @@
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+# *.jar, lib folder, leave this in for the moment
+*.war
+*.ear
+
+# PDFs which can be generated from latex sources
+*.pdf
+
+# stuff from kile/texmaker
+*.log
+*.tex.backup
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# log and tmp files
+*.aux
+*.log
