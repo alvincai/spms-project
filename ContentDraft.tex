@@ -1,0 +1,57 @@
+\documentclass[conference]{IEEEtran}
+
+\title{802.11p Literature Review and Attacks}
+\author{\IEEEauthorblockN{Aniket Chaudhari and Alvin Cai and Wouter de Groot and Erik Schneider}
+\IEEEauthorblockA{Technische Universiteit Eindhoven\\
+Eindhoven, The Netherlands\\
+\\
+September 30, 2014}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In this content-draft, we outline our project to understand and attack 802.11p in the context of “Security and Privacy in Mobile Systems”.
+\end{abstract}
+
+\section{Introduction}
+802.11p, Wireless Access in Vehicular Environment (WAVE), is an amendment to the 802.11 wireless communication standard and is designed for vehicle to vehicle communication related to security issues, warning of incidents or mere exchange of different types of information. It utilizes the 5.9 GHz frequency band and is designed to accommodate very short-lived communication links.\\
+
+802.11 and the 802.11p amendment are MAC and PHY layer standards that suggest denial-of-service (DoS) and frame header fuzzing as promising attack vectors, especially when hardware implementation is poor. We also intend to expand the scope of our research to include upper level protocols as provided by the IEEE 1609 standards.\\
+
+In this paper we will provide a literature review of 802.11p, including selected attacks. This survey will inform our choice of attacks to implement during the practical phase of the project. In addition, we will attempt to demonstrate new attacks through the implementation of a fuzzing framework.
+
+\section{Background}
+
+Wireless access in vehicular environments presents unique challenges compared to traditional 802.11 environments \cite{karagiannis2011vehicular}. Requirements common to all WAVE use cases include a need for short critical latency (\textless 100 ms) and a need to maintain communication across hops as vehicles pass through coverage areas. In recognition of these special needs, IEEE approved 802.11p in 2010 to amend 802.11-2007 \cite{ieee11802} so data can be exchanged without the need to establish a basic service set. This reduction in communication overhead, however, also reduces the robust authentication and encryption safeguards inherent in the 802.11 standard. Researchers have only begun to investigate the full security implications of this pared-down protocol and this project intends to contribute to that effort.\\
+
+The background phase of the project will consist of an extensive literature survey. This survey will highlight the pertinent details of 802.11p and will place the amendment within the larger vehicular communication environment. Appropriate upper layer protocols will also be investigated for weaknesses and vulnerabilities. Finally, existing attacks will be examined and categorized as detailed below. 
+
+\subsection{Attacks}
+Aijaz et al. \cite{aijaz2006attacks} employ attack trees to assess the vehicular communication threat model and provides a useful classification system for both existing and future attacks. Due to time and space constraints, however, we will limit our focus to 2-3 attacks that we consider feasible yet important. Based on our preliminary research, two current candidates for further investigation include basic denial of service (DOS) and packets in packets attacks \cite{goodspeed2011packets}. \\
+
+Denial of service attacks can be performed by the aggressive injection of dummy messages over a network or by halting access to shared network devices. For a packets in packets attack, an attacker injects specially crafted packets into the network that appear to be valid. However, upon radio interference, the outer packet is damaged and the receiver is tricked into accepting the inner packet that contains a malicious payload. These attacks differ in complexity and therefore should develop our appreciation for the challenges presented in executing real-world attacks.\\
+
+\section{Methodology}
+\subsection{ Implementations of Existing Attacks}
+\label{sec:existing_attacks}
+Ath5k is a common open source driver for Qualcomm Atheros based wireless chipsets in Linux and will be the focus for replicating existing attacks. Specifically, we will interface with the drivers for the packets in packets attack and modify the drivers for the DOS attack. We will then evaluate if the 802.11p reference devices (available at Twente) or Atheros drivers are vulnerable. If the drivers are vulnerable, we will attempt to propose a fix and evaluate the efficacy of this fix.\\
+
+\subsection{Fuzzing Framework}
+Device drivers implementing 802.11p are a promising source of undiscovered bugs. In particular, they are typically written in C code where it is easy to make mistakes and they may be audited less frequently than mainline kernel codes \cite{butti2008discovering}. These factors combined with the recent adoption of the 802.11p standard suggest insecure implementations exist. Fuzzing is an ideal approach to discover such vulnerabilities as it provides good results for the required investment as compared to a more tedious code review.\\
+
+Thus to aid our search for undiscovered vulnerabilities we will design a fuzzing architecture. Design considerations will include the selection of an appropriate hardware configuration, of software tool(s) (i.e. leveraging existing tools such as Scapy, develop custom tools or leveraging tools used in Chapter \ref{sec:existing_attacks}) and of the 802.11p protocol fields to fuzz.
+
+\section{Results}
+This section will contain a list of exploits discovered as a result of our fuzzing. For each flaw, we will detail the method and the potential consequences of its exploitation.
+
+\section{Analysis}
+This section may be merged with Results if we discover a novel attack. Otherwise, this section will analyze the strength and limitations of our approach.
+
+\section{Discussion}
+This section will provide a critical assessment of the current research into 802.11p security, including our contributions. Among the lines of analysis to be considered are the following questions: How did our work contribute to the state of the art? What are the consequences for 802.11p? What are the most promising avenues of research? What are the limitations in our research?
+
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEfull,ContentDraft.bib}
+
+\end{document}}
