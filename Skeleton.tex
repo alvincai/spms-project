@@ -1,0 +1,129 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage{verbatim}	%Multi line comment using \begin{comment} and \end{comment)
+
+\title{802.11p Literature Review and Attacks}
+\author{\IEEEauthorblockN{Aniket Chaudhari and Alvin Cai and Wouter de Groot and Erik Schneider}
+\IEEEauthorblockA{Technische Universiteit Eindhoven\\
+Eindhoven, The Netherlands\\
+\\
+September 30, 2014}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In this literature review, we describe 802.11p, 1609.2 and attacks on vehicular networks in the context of “Security and Privacy in Mobile Systems”.
+\end{abstract}
+
+\section{Introduction}
+
+\begin{comment}
+I think we should amend the first paragraph to provide an overview of VANET in general before jumping into 802.11p.
+
+I made some amendments to para 2 and 3, to align to the modified scope. i.e. 
+a) The literature review is the main meat of this project
+b) It must provide a comprehensive survey of different attacks 
+c) We can explain the attacks we want to implement in more detail
+d) Focus on attacks in OSI layer 1-3
+\end{comment}
+
+802.11p is an amendment to the 802.11 wireless communication standard and is designed for vehicle to vehicle communication mainly related to safety issues such as warning of incidents. 802.11p can also support other applications such as traffic optimization, payment services and infotainment. It utilizes the 5.9 GHz frequency band and is designed to accommodate very short-lived communication links.\\
+
+802.11 and the 802.11p amendment are PHY and MAC layer standards. There are other concerns in a vehicular network such as security and efficient routing which could be better addressed in different OSI layers. The IEEE 1609 family of standards was developed with these in mind. The combination of IEEE 802.11p and the IEEE 1609 protocol suite is denoted as WAVE (Wireless Access in Vehicular Environments).\\
+
+In this paper we will provide a literature review of 802.11p, the security component of IEEE 1609 and provide an overview of vehicular network attacks targeted at the OSI layers of 1, 2 and 3. This survey will inform our choice of attacks to implement during the practical phase of the project. In addition, we will attempt to demonstrate new attacks through the implementation of a fuzzing framework.
+
+\section{Wave Architecture}
+
+Discussion on Usage:\\
+%The two paras below are lifted directly from \cite{raya2007securing}. Paraphrase!
+In this paper we consider only safety applications. In this context, we can classify the safety messages into three classes, based on their properties related to privacy and real-time constraints, as shown in Table 1. Traffic infor-
+mation messages are used to disseminate traffic conditions in a given region and thus affect public safety only indirectly (by preventing potential accidents due to congestion); hence they are not time-critical. General safety-related messages are used by public safety applications such as cooperative driving and collision avoidance and
+hence should satisfy stringent constraints such as an upper bound on the delivery delay. Liability-related messages are distinguished from the previous class because they are exchanged in liability-related situations such as accidents. Therefore, the liability of the message originator should be determined by revealing his identity to
+the law enforcement authorities. This classification of messages will be useful later in describing the attacks on VANETs \cite{raya2007securing}.
+
+An important feature of ad hoc networks is multihopping. But according to the DSRC specifications and because of their broadcast nature, safety messages are transmitted over a single-hop with a sufficient power to warn vehicles in a range of 10 seconds travel time, thus eliminating the need for multihop. Nevertheless, some form of multihop still exists: vehicles that receive warning messages estimate whether the reported problems can also affect their followers; in this case, they forward the message to them \cite{raya2007securing}.
+
+Describe how all the standards (1609 + 802.11p) tie in together\\
+
+Describe hardware architecture e.g. OBU RSU . A good reference is \cite{laurendeau2006threats}\\
+
+\subsection{IEEE 802.11p}
+Wireless access in vehicular environments presents unique challenges compared to traditional 802.11 environments \cite{karagiannis2011vehicular}. Requirements common to all WAVE use cases include a need for short critical latency (\textless 100 ms) and a need to maintain communication across hops as vehicles pass through coverage areas. In recognition of these special needs, IEEE approved 802.11p in 2010 to amend 802.11-2007 \cite{ieee11802} so data can be exchanged without the need to establish a basic service set. This reduction in communication overhead, however, also reduces the robust authentication and encryption safeguards inherent in the 802.11 standard. Researchers have only begun to investigate the full security implications of this pared-down protocol and this project intends to contribute to that effort.
+
+Talk a little bit more the 802.11p standard...e.g. \\
+wildcard BSSS and other frame formats\\
+some of the properties that provide DoS resilience\\
+
+\subsection{IEEE 1609}
+Describe the different IEEE 1609 standards. \\
+Specifically, explain the security mechanisms provided by the 1609.2.\\
+Signing, CAs etc\\
+
+\subsection{Equivalent standards}
+Michael: Also the IEEE family of standard around 1609, such as 802.11p and WAVE, have an equivalent family of standards at ETSI for the european market. You should mention these was well. The 802.11p standard for standardized as ETSI ITS 5G in Europe.
+
+
+\section{Attacks}
+Aijaz et al. \cite{aijaz2006attacks} employ attack trees to assess the vehicular communication threat model and provides a useful classification system for both existing and future attacks. 
+
+We will describe the main attacks proposed and evaluate if the current standard are vulnerable to these attack. 
+
+\subsection{Threats to Availability}
+
+Denial of service attacks can be performed by the aggressive injection of dummy messages over a network or by halting access to shared network devices. e.g. flooding, jamming, synch \cite{biswas2012ddos}
+
+Black hole \cite{laurendeau2006threats} 
+% black hole is organised under threat to authenticity in \cite{laurendeau2006threats} but i thnik its more a threat to availability
+
+Hidden vehicle \cite{raya2007securing}
+
+\subsection{Threats to Authenticity}
+
+
+Authentication is an extremely important property for the proper operation of VANETs. For example, an attacker could
+inject false information into the network by announcing a non-existent traffic jam or a false accident report. A false traf- fic jam announcement could cause traffic to be diverted from one road to another and actually cause a traffic jam. A false accident announcement could cause emergency braking and potentially result in real accidents \cite{toor2008vehicle}.
+
+
+Replay\\
+Relay aka Wormhole \cite{raya2007securing} \\
+Forged messages\\
+Masquerading \cite{laurendeau2006threats}\\
+
+For a packets in packets attack \cite{goodspeed2011packets}, an attacker injects specially crafted packets into the network that appear to be valid. However, upon radio interference, the outer packet is damaged and the receiver is tricked into accepting the inner packet that contains a malicious payload. This attack is perhaps extra plausible in a VANET scenario because we have trusted hardware and firmware components but maybe untrusted applications e.g. infotainment system?\\
+
+Sybil Attack \cite{zhou2007privacy}
+Bush telegraph \cite{raya2007securing}\\
+
+\subsection{Threats to Confidentiality and Privacy}
+
+Privacy is a major issue in VANETs because tracking vehicles would be easy and cost effective unless proper steps are taken. Attackers could install a network of cheap radio transceivers to eavesdrop on all wireless communication in the VANET. The larger the number of transceivers, the greater the strength. Then, vehicles could be linked to the actual identity of the person by tracking the movement pattern from home to workplace \cite{toor2008vehicle}
+
+Insider/Outsider Eavesdropping \cite{laurendeau2006threats}\\
+
+Many papers on this e.g. \cite{dotzer2006privacy} but they mainly propose solutions.
+
+\section{Methodology}
+\subsection{ Implementations of Existing Attacks}
+\label{sec:existing_attacks}
+Ath5k is a common open source driver for Qualcomm Atheros based wireless chipsets in Linux and will be the focus for replicating existing attacks. Specifically, we will interface with the drivers for the packets in packets attack and modify the drivers for the DOS attack. We will then evaluate if the 802.11p reference devices (available at Twente) or Atheros drivers are vulnerable. If the drivers are vulnerable, we will attempt to propose a fix and evaluate the efficacy of this fix.\\
+
+\subsection{Fuzzing Framework}
+Device drivers implementing 802.11p are a promising source of undiscovered bugs. In particular, they are typically written in C code where it is easy to make mistakes and they may be audited less frequently than mainline kernel codes \cite{butti2008discovering}. These factors combined with the recent adoption of the 802.11p standard suggest insecure implementations exist. Fuzzing is an ideal approach to discover such vulnerabilities as it provides good results for the required investment as compared to a more tedious code review.\\
+
+Thus to aid our search for undiscovered vulnerabilities we will design a fuzzing architecture. Design considerations will include the selection of an appropriate hardware configuration, of software tool(s) (i.e. leveraging existing tools such as Scapy, develop custom tools or leveraging tools used in Chapter \ref{sec:existing_attacks}) and of the 802.11p protocol fields to fuzz.
+
+\section{Results}
+This section will contain a list of exploits discovered as a result of our fuzzing. For each flaw, we will detail the method and the potential consequences of its exploitation.
+
+\section{Analysis}
+This section may be merged with Results if we discover a novel attack. Otherwise, this section will analyze the strength and limitations of our approach.
+
+\section{Discussion}
+This section will provide a critical assessment of the current research into 802.11p security, including our contributions. Among the lines of analysis to be considered are the following questions: How did our work contribute to the state of the art? What are the consequences for 802.11p? What are the most promising avenues of research? What are the limitations in our research?
+
+\bibliographystyle{IEEEtran}
+\bibliography{Skeleton.bib}
+
+\end{document}
