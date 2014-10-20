@@ -1,0 +1,25 @@
+
+Discussion on Usage:\\
+%The two paras below are lifted directly from \cite{raya2007securing}. Paraphrase!
+In this paper we consider only safety applications. In this context, we can classify the safety messages into three classes, based on their properties related to privacy and real-time constraints, as shown in Table 1. Traffic infor-
+mation messages are used to disseminate traffic conditions in a given region and thus affect public safety only indirectly (by preventing potential accidents due to congestion); hence they are not time-critical. General safety-related messages are used by public safety applications such as cooperative driving and collision avoidance and
+hence should satisfy stringent constraints such as an upper bound on the delivery delay. Liability-related messages are distinguished from the previous class because they are exchanged in liability-related situations such as accidents. Therefore, the liability of the message originator should be determined by revealing his identity to
+the law enforcement authorities. This classification of messages will be useful later in describing the attacks on VANETs \cite{raya2007securing}.
+
+An important feature of ad hoc networks is multihopping. But according to the DSRC specifications and because of their broadcast nature, safety messages are transmitted over a single-hop with a sufficient power to warn vehicles in a range of 10 seconds travel time, thus eliminating the need for multihop. Nevertheless, some form of multihop still exists: vehicles that receive warning messages estimate whether the reported problems can also affect their followers; in this case, they forward the message to them \cite{raya2007securing}.
+
+Describe how all the standards (1609 + 802.11p) tie in together\\
+
+Describe hardware architecture e.g. OBU RSU . A good reference is \cite{laurendeau2006threats}\\
+
+\subsection{IEEE 802.11p}
+Wireless access in vehicular environments presents unique challenges compared to traditional 802.11 environments \cite{karagiannis2011vehicular}. Requirements common to all WAVE use cases include a need for short critical latency (\textless 100 ms) and a need to maintain communication across hops as vehicles pass through coverage areas. In recognition of these special needs, IEEE approved 802.11p in 2010 to amend 802.11-2007 \cite{ieee11802} so data can be exchanged without the need to establish a basic service set. This reduction in communication overhead, however, also reduces the robust authentication and encryption safeguards inherent in the 802.11 standard. Researchers have only begun to investigate the full security implications of this pared-down protocol and this project intends to contribute to that effort.
+
+Talk a little bit more the 802.11p standard...e.g. \\
+wildcard BSSS and other frame formats\\
+some of the properties that provide DoS resilience\\
+
+\subsection{IEEE 1609}
+Describe the different IEEE 1609 standards. \\
+Specifically, explain the security mechanisms provided by the 1609.2.\\
+Signing, CAs etc\\
