@@ -28,17 +28,14 @@ c) We can explain the attacks we want to implement in more detail
 d) Focus on attacks in OSI layer 1-3
 \end{comment}
 
-802.11p is an amendment to the 802.11 wireless communication standard and is designed for vehicle to vehicle communication mainly related to safety issues such as warning of incidents. 802.11p can also support other applications such as traffic optimization, payment services and infotainment. It utilizes the 5.9 GHz frequency band and is designed to accommodate very short-lived communication links.\\
+Communications and netwoking are key factors in the development of an intelligent transportation systems which aims to automate the interactions among vehicles and infrastructure to achieve high levels of safety, efficiency and comfort. The IEEE has developed a system architecture known as wireless access in vehicular networks (WAVE) which comprises the IEEE 802.1p and IEEE 1609.x standards.
 
-802.11 and the 802.11p amendment are PHY and MAC layer standards. There are other concerns in a vehicular network such as security and efficient routing which could be better addressed in different OSI layers. The IEEE 1609 family of standards was developed with these in mind. The combination of IEEE 802.11p and the IEEE 1609 protocol suite is denoted as WAVE (Wireless Access in Vehicular Environments).\\
+802.11p is an amendment to the 802.11 wireless communication standard specifically designed for vehicle to vehicle communication mainly related to safety issues such as warning of incidents. It utilizes the 5.9 GHz frequency band and is designed to accommodate very short-lived communication links. 802.11p is a PHY and MAC layer standards. The IEEE 1609 family of standards are a set of higher layer protocols which aims to address other issues such as security and efficient routing protocols.\\
 
 In this paper we will provide a literature review of 802.11p, the security component of IEEE 1609 and provide an overview of vehicular network attacks targeted at the OSI layers of 1, 2 and 3. This survey will inform our choice of attacks to implement during the practical phase of the project. In addition, we will attempt to demonstrate new attacks through the implementation of a fuzzing framework.
 
 \section{Wave Architecture}
 \input{wave}
-
-\subsection{Equivalent standards}
-Michael: Also the IEEE family of standard around 1609, such as 802.11p and WAVE, have an equivalent family of standards at ETSI for the european market. You should mention these was well. The 802.11p standard for standardized as ETSI ITS 5G in Europe.
 
 
 \section{Attacks}
